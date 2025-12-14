@@ -32,5 +32,4 @@ You do **not** need prior OpenWrt or Linux experience.
 Run this on your OpenWrt router:
 
 ```sh
-# (Assuming you host this repo, otherwise copy install.sh manually)
-curl -fsSL <RAW_GITHUB_URL>/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/SlateIntegrations-git/script-rpi-zerotier-setup/main/install.sh | sh
