@@ -1,81 +1,151 @@
-# Setup Instructions: RPi5 ZeroTier Bridge
+INSTRUCTIONS.txt
 
-**Goal:** Turn a blank Raspberry Pi 5 into a "Plug-and-Play" Network Bridge.  
-**Time Required:** 15 Minutes  
-**Difficulty:** Beginner (No coding required)
+OpenWRT Expert — Custom Gem
+RPi 5 ZeroTier Bridge Setup
 
----
+GOAL
+Turn a blank Raspberry Pi 5 into a plug-and-play network bridge.
 
-## Part 1: Prepare the Hardware
+TIME REQUIRED
+Approximately 15 minutes
 
-### What You Need
-1. **Raspberry Pi 5**
-2. **MicroSD Card** (8GB or larger)
-3. **USB-C Power Supply** (Official Pi power supply recommended)
-4. **Ethernet Cable**
-5. **Computer** (Windows, Mac, or Linux)
+DIFFICULTY
+Beginner — no coding required
+___________________________________________________________________________
 
-### Step 1: Download the Software
-1. Download **Raspberry Pi Imager** from [raspberrypi.com/software](https://www.raspberrypi.com/software/).
-2. Download the **OpenWrt Firmware** for RPi 5:
-   - Go to [firmware-selector.openwrt.org](https://firmware-selector.openwrt.org/)
-   - Type `Raspberry Pi 5`
-   - Click the **"Factory"** download button (filename ends in `.img.gz`).
+STEP 1 — DOWNLOAD THE SOFTWARE
 
-### Step 2: Flash the SD Card
-1. Insert your SD card into your computer.
-2. Open **Raspberry Pi Imager**.
-3. Click **CHOOSE OS** -> scroll down to **Use Custom** -> select the OpenWrt file you downloaded.
-4. Click **CHOOSE STORAGE** -> select your SD Card.
-5. Click **NEXT** -> **No** (to customization settings) -> **YES** (to warning).
-6. When finished, remove the SD card and insert it into the Raspberry Pi 5.
+Download Raspberry Pi Imager
 
----
+https://www.raspberrypi.com/software/
 
-## Part 2: First Connection
+Download OpenWrt firmware for Raspberry Pi 5:
 
-### Step 3: Wire It Up
-*Do not plug the Pi into your Internet router yet.*
+Go to https://firmware-selector.openwrt.org/
 
-1. Connect the **Ethernet Cable** from the **Raspberry Pi** directly to your **Computer**.
-2. Plug the **Power Cable** into the Raspberry Pi.
-3. Wait **60 seconds** for the lights to settle.
+Search for: Raspberry Pi 5
 
-### Step 4: Access the Dashboard
-1. On your computer, turn **OFF** your Wi-Fi (temporarily).
-   * *Why? This ensures your computer talks to the Pi, not your home network.*
-2. Open a Web Browser (Chrome, Safari, Edge).
-3. Type `192.168.1.1` in the address bar and hit Enter.
-4. You should see the OpenWrt login screen.
-   - **Username:** `root`
-   - **Password:** (Leave blank)
-   - Click **Login**.
+Download the Factory image (file ends in .img.gz)
+____________________________________________________________________________
 
----
+STEP 2 — FLASH THE SD CARD
 
-## Part 3: Get Internet Access
-*To install the ZeroTier software, the Pi needs to download it. We will connect the Pi to your home Wi-Fi for this step.*
+Insert the SD card into your computer.
 
-1. In the Dashboard menu, go to **Network** -> **Wireless**.
-2. Look for the "Master" wireless radio and click the **Scan** button.
-3. Find your **Home Wi-Fi Network** in the list and click **Join Network**.
-4. Entering settings:
-   - **WPA Passphrase:** Your Home Wi-Fi Password.
-   - **Name of the new network:** Leave as `wwan`.
-   - **Firewall zone:** Select `wan`.
-   - Click **Submit**.
-5. Click **Save & Apply** (blue button at the bottom).
-6. Wait 15 seconds. You can now turn your Computer's Wi-Fi back **ON** if you wish, but keep the Ethernet cable connected.
+Open Raspberry Pi Imager.
 
----
+Click CHOOSE OS → Use Custom → select the OpenWrt .img.gz file.
 
-## Part 4: Run the Deployment
+Click CHOOSE STORAGE → select your SD card.
 
-Now that the Pi has power, a connection to you, and a connection to the internet, we run the automated script.
+Click NEXT.
 
-1. **Open a Terminal** on your computer:
-   - **Windows:** Right-click Start -> "Windows PowerShell" or "Command Prompt".
-   - **Mac:** Command+Space -> Type "Terminal".
-2. Log into the Pi by typing this command and hitting Enter:
-   ```bash
-   ssh root@192.168.1.1
+Select NO for customization.
+
+Select YES to confirm overwrite.
+
+When complete, remove the SD card and insert it into the Raspberry Pi 5.
+____________________________________________________________________________
+
+STEP 3 — WIRE IT UP
+
+IMPORTANT: Do NOT connect the Pi to your internet router yet.
+
+Connect an Ethernet cable from the Raspberry Pi directly to your computer.
+
+Plug the power cable into the Raspberry Pi.
+
+Wait 60 seconds for the Pi to boot.
+
+Turn OFF your computer’s Wi-Fi temporarily.
+_____________________________________________________________________________
+
+STEP 4 — CONNECT THE PI TO WI-FI
+
+The Pi needs internet access to download ZeroTier.
+
+Open a web browser and go to:
+http://192.168.1.1
+
+Username: root
+Password: (leave blank)
+
+Navigate to Network → Wireless.
+
+Find the Master radio and click Scan.
+
+Join your home Wi-Fi network:
+
+WPA Passphrase: your Wi-Fi password
+
+Name of new network: wwan
+
+Firewall zone: wan
+
+Click Submit, then Save & Apply.
+
+Wait approximately 15 seconds.
+
+Turn your computer’s Wi-Fi back ON.
+_______________________________________________________________________________
+
+STEP 5 — INSTALL ZEROTIER AND JOIN THE NETWORK
+
+Open a terminal:
+
+Windows: PowerShell
+
+macOS/Linux: Terminal
+
+Log into the Raspberry Pi:
+ssh root@192.168.1.1
+
+Type "yes" if prompted.
+
+Run the installer:
+curl -fsSL https://raw.githubusercontent.com/SlateIntegrations-git/script-rpi-zerotier-setup/main/install.sh
+ | sh
+
+When prompted, enter your ZeroTier Network ID.
+
+Copy your 16-character Network ID from:
+[link removed]
+
+Paste it into the terminal and press Enter.
+
+The script will automatically:
+
+Install ZeroTier
+
+Create the bridge
+
+Save the configuration
+_____________________________________________________________________________________
+
+STEP 6 — FINAL AUTHORIZATION
+
+ZeroTier requires manual approval for new devices.
+
+When the script finishes, note the Device ID displayed
+(example: a1b2c3d4e5)
+
+Go to:
+The account's ZeroTier dashboard
+
+Open your ZeroTier network.
+
+Scroll to the Members section.
+
+Find the new device and:
+
+Check the Authorize box
+
+Click the wrench icon (settings)
+
+Enable "Allow Ethernet Bridging"
+_______________________________________________________________________________________
+DONE
+
+You may now unplug the Raspberry Pi from your computer and connect it to any device or switch you want bridged into the VPN network.
+
+The Raspberry Pi is now a portable, plug-and-play Layer-2 bridge.
