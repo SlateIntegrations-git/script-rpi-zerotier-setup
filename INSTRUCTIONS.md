@@ -103,9 +103,10 @@ ssh root@192.168.1.1
 Type "yes" if prompted.
 
 Run the installer:
+```
 curl -fsSL https://raw.githubusercontent.com/SlateIntegrations-git/script-rpi-zerotier-setup/main/install.sh
  | sh
-
+```
 When prompted, enter your ZeroTier Network ID.
 
 Copy your 16-character Network ID from:
