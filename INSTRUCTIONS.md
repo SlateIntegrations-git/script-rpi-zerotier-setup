@@ -100,12 +100,15 @@ macOS/Linux: Terminal
 Log into the Raspberry Pi:
 ssh root@192.168.1.1
 
+#### IF YOU GET A REMOTE HOST IDENTIFICATION HAS CHANGED MESSAGE #### see the next line
+in the Terminal window, type "ssh-keygen -R 192.168.1.1". Then reattempt ssh root@192.168.1.1
+#############################################################################################
+
 Type "yes" if prompted.
 
 Run the installer:
 ```
-curl -fsSL https://raw.githubusercontent.com/SlateIntegrations-git/script-rpi-zerotier-setup/main/install.sh
- | sh
+opkg update && opkg install curl ca-bundle ca-certificates && curl -fsSL https://raw.githubusercontent.com/SlateIntegrations-git/script-rpi-zerotier-setup/main/install.sh | sh
 ```
 When prompted, enter your ZeroTier Network ID.
 
