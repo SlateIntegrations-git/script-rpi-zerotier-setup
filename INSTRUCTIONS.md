@@ -108,7 +108,7 @@ Type "yes" if prompted.
 
 Run the installer:
 ```
-opkg update && opkg install curl ca-bundle ca-certificates && curl -fsSL https://raw.githubusercontent.com/SlateIntegrations-git/script-rpi-zerotier-setup/main/install.sh | sh
+opkg update && opkg install nano curl ca-bundle ca-certificates && curl -fsSL https://raw.githubusercontent.com/SlateIntegrations-git/script-rpi-zerotier-setup/main/install.sh | sh
 ```
 When prompted, enter your ZeroTier Network ID.
 
