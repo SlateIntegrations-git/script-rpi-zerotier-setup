@@ -40,7 +40,8 @@ echo "▶ Deploying $BASELINE_NAME Baseline $BASELINE_VERSION"
 if [ -z "$ZT_NETWORK_ID" ]; then
     echo ""
     echo -n "Enter your ZeroTier Network ID (16 chars): "
-    read input_id
+    # FIX: Force read from terminal even when piped
+    read input_id < /dev/tty
     ZT_NETWORK_ID=$(echo "$input_id" | tr -d '[:space:]')
 fi
 
